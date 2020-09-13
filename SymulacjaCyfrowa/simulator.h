@@ -18,11 +18,24 @@ public:
 	void Start();
 
 private:
+	/*
+		Czas po którym zatrzymie siê symulacja
+	*/
 	const double kStopTime_;
+
+	/*
+		Iloœæ odbiorników
+	*/
 	const double kNrofOdbiornik_;
 
+	/*
+		Aktualny czas
+	*/
 	double current_time_;
 
+	/*
+		Czy zosta³a ustawiona opcja krok po kroku
+	*/
 	bool step_by_step_;
 
 	double pakiet_arrived_time_;

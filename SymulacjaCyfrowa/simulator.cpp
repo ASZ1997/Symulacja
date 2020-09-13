@@ -11,6 +11,12 @@
 #include "pakiet.h"
 #include "odbiornik.h"
 
+/*
+	Ustawia symulator (czyœci dane)
+
+	stop_time -> Czas po którmy zokoñczy siê symulacja
+	nrof_service -> Iloœæ nadajników/odbiorników
+*/
 Simulator::Simulator(double stop_time, int nrof_service) : kStopTime_(stop_time),
 kNrofOdbiornik_(nrof_service)
 {
@@ -21,11 +27,19 @@ kNrofOdbiornik_(nrof_service)
 		service_completion_time_.push_back(-1);
 }
 
+/*
+	Usuwa dane (medium)
+*/
 Simulator::~Simulator()
 {
 	delete medium_;
 }
 
+/*
+	Inicjalizuje ustawienia sumulatora
+	step_by_step -> ustawia tryb pracy symulatora
+	verb -> ustawia poziom wyœwietlanych szczegó³ów 
+*/
 void Simulator::Initialize(bool step_by_step, Logger::LogVerbosity verb)
 {
 	medium_ = new Medium(kNrofOdbiornik_);
