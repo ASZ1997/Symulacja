@@ -1,30 +1,112 @@
 #include "medium.h"
+#include "package.h"
+#include "logger.h"
+#include "transmitter.h"
+#include "receiver.h"
 #include <iostream>
-#include "pakiet.h"
-#include "odbiornik.h"
+#include <sstream>
+#include <queue>
+
+
 
 using namespace std;
 
 
-Medium::Medium(int nr_of_sds):kLiczbaOdbiorników(nr_of_sds)
+Medium::Medium()
 {
-	for(int i = 0; i <kLiczbaOdbiorników; i++)
-	{
-		odbiornik.push_back(new Odbiornik());
-	}
+	this->FSlotUsed = false;
 }
 
 Medium::~Medium()
 {
-	while(!pakiet.empty())
+	
+}
+
+bool Medium::addPackage(Package* package, int currentTime)
+{
+	if (!this->FSlotUsed)
 	{
-		Pakiet* p = pakiet.front();
-		pakiet.pop();
-		cout << "Pakiet #" << p->getID() << " deleted!\n";
-		delete p;
+		package->timeGotAccessToTheMedium = currentTime;
+		this->packagesInMedum.push(package);
+		this->FSlotUsed = true;
+
+		stringstream ss; ss <<
+			currentTime << "ms" << "\n" <<
+			"---" << "\n" <<
+			" Medium " << "\n" <<
+			" Przyjeto pakiet w szczeline:" << "\n" <<
+			"	Pakiey:" << "\n" <<
+			"		- id:" << package->ID_ << "\n" <<
+			"		- Nadajnik id:" << package->FROM_ID_ << "\n" <<
+			"		- Odbiornik id:" << package->TO_ID_ << "\n" <<
+			"		- Stworzony: " << package->createTime << " ms " << "\n" <<
+			"		- Szacowny czas trasmisji do odbiornika: " << package->ctp << " ms " << "\n" <<
+			"		- Szacowny czas na ACK: " << package->ctp + 1 << " ms " << "\n" <<
+			"\n";
+		std::string v = ss.str();
+		Logger::GetInstance()->Print(v, Logger::L3);
+
+		return true;
 	}
-	for(auto *sd:odbiornik)
+	else 
 	{
-		delete sd;
+		return false;
+	}
+}
+
+void Medium::working(int currentTime, Transmitter** transmitters, Receiver** receivers)
+{
+	for (int i = 0; i < this->packagesInMedum.size(); i++)
+	{
+		if ((this->packagesInMedum.front()->timeGotAccessToTheMedium + this->packagesInMedum.front()->ctp) == currentTime)
+		{
+			Package* pack = this->packagesInMedum.front();
+			int fromTo = pack->TO_ID_;
+			if (receivers[fromTo]->ConnectToReceiver())
+			{
+				//uda sie wyslac ack
+				transmitters[fromTo]->flagAck = true;
+
+				stringstream ss; ss <<
+					currentTime << "ms" << "\n" <<
+					"---" << "\n" <<
+					" Odbiornik:" << "\n" <<
+					"	- id: "<< fromTo << "\n" <<
+					" Pomyslnie odebral i obsluzyl pakiet" << "\n" <<
+					" Wysyla ACK" << "\n" <<
+					"	Pakiet:" << "\n" <<
+					"		- id:" << pack->ID_ << "\n" <<
+					"		- Od nadajnika o id:" << pack->FROM_ID_ << "\n" <<
+					"\n";
+				std::string v = ss.str();
+				Logger::GetInstance()->Print(v, Logger::L3);
+
+			}
+			else
+			{
+				//nie uda sie wyslac ack
+				stringstream ss; ss <<
+					currentTime << "ms" << "\n" <<
+					"---" << "\n" <<
+					" Odbiornik:" << "\n" <<
+					"	- id: " << fromTo << "\n" <<
+					" Nieudana obsluga pakietu" << "\n" <<
+					" Nie wysle ACK" << "\n" <<
+					"	Pakiet:" << "\n" <<
+					"		- id:" << pack->ID_ << "\n" <<
+					"		- Od nadajnika o id:" << pack->FROM_ID_ << "\n" <<
+					"\n";
+				std::string v = ss.str();
+				Logger::GetInstance()->Print(v, Logger::L3, Logger::LOG_WARNING);
+			}
+
+			this->packagesInMedum.pop();
+		}
+		else
+		{
+			Package* pack = this->packagesInMedum.front();
+			this->packagesInMedum.pop();
+			this->packagesInMedum.push(pack);
+		}
 	}
 }

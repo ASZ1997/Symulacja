@@ -8,9 +8,10 @@ int main()
 	printf("                           INITIALIZATION\n");
 	printf("------------------------------------------------------------------------\n");
 
-	Simulator* simulator = new Simulator(200, 5);
+	Simulator* simulator = new Simulator(200, 1);
 
-	bool step_by_step = true; int logger_verb;
+	bool step_by_step = true; 
+	int logger_verb;
 	printf("Choose simulation mode (1 - step by step, 0 - continous): ");
 	std::cin >> step_by_step;
 	do

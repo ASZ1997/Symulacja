@@ -3,37 +3,53 @@
 
 #include <string>
 
-// Logger class, responsiblew for logging errors, warnings anf infos.
-// Sample usage:
-//
-//	Logger *logger = new Logger();
-//	logger->setLogVerbosity(L2);
-//	
-//	logger->print("text", LOG_INFO, L1); // text will be printed -> L1 <= L2
-//	logger->print("text", LOG_INFO, L3); // text will NOT be printed -> L3 > L2
 class Logger
 {
 public:
+	/**
+		Typy logów
+	*/
 	enum LogType { LOG_ERROR, LOG_WARNING, LOG_INFO };
 
+	/**
+		Poziom szczegó³owoœci logów
+	*/
 	enum LogVerbosity { L1 = 1, L2, L3, L4 };
 
-	// Prints messages into output stream.
+	/**
+		Wyœwietl wiadmoœæ w logach
+	*/
 	void Print(const std::string text, LogVerbosity logVerb = L1, LogType logType = LOG_INFO);
 
+	/**
+		Ustaw poziom szczegó³owowœci logów
+	*/
 	void SetLogVerbosity(LogVerbosity lv);
 
+	/**
+		Zwraca poziom szczegó³owowœci logów
+	*/
 	LogVerbosity GetLogVerbosity();
 
+	/**
+		Zwraca instancje obiektu
+	*/
 	static Logger* GetInstance();
 
 protected:
+	
 	Logger();
 
 	virtual ~Logger();
 
+	/**
+		Przecowuje instancje loggera
+	*/
 	static Logger* instance_;
 
+	/**
+		Przechowuje poziom szczegó³owoœci logera
+	*/
 	LogVerbosity log_verbosity_;			// Log verbosity.       
 };
 

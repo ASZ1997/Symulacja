@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -141,19 +141,19 @@
   <ItemGroup>
     <ClInclude Include="logger.h" />
     <ClInclude Include="medium.h" />
-    <ClInclude Include="nadajnik.h" />
-    <ClInclude Include="odbiornik.h" />
-    <ClInclude Include="pakiet.h" />
+    <ClInclude Include="package.h" />
+    <ClInclude Include="receiver.h" />
     <ClInclude Include="simulator.h" />
+    <ClInclude Include="transmitter.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="logger.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="medium.cpp" />
-    <ClCompile Include="nadajnik.cpp" />
-    <ClCompile Include="odbiornik.cpp" />
-    <ClCompile Include="pakiet.cpp" />
+    <ClCompile Include="package.cpp" />
+    <ClCompile Include="receiver.cpp" />
     <ClCompile Include="simulator.cpp" />
+    <ClCompile Include="transmitter.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

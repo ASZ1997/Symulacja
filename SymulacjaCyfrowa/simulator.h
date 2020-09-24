@@ -6,48 +6,76 @@
 using namespace std;
 
 struct Medium;
+class Transmitter;
+class Receiver;
 
+/**
+	Symulator
+*/
 class Simulator
 {
 public:
-	Simulator(double stop_time, int nrof_service);
+	/**
+		Ustawia czas po kótrym dana symulacja siê zakoñczy
+		Ustawia iloœæ nadajników i odbiorników bêdzie w danej symulacji
+	*/
+	Simulator(double stopTime, int amountOfDevices);
+
 	~Simulator();
 
-	void Initialize(bool step_by_step, Logger::LogVerbosity verb);
+	/**
+		Ustawia czy symulacja ma siê wykonywaæ krok po kroku
+		Ustawia szczegó³owoœæ wyœwietlanych informacji
+	*/
+	void Initialize(bool stepByStep, Logger::LogVerbosity verb);
 
+	/**
+		Wystartowanie symulacji
+	*/
 	void Start();
 
 private:
+
+	/**
+		Wykonaj pracê nadajników
+	*/
+	void transmittersJobs();
+
+	/*
+		Medium trasmisyjne
+	*/
+	Medium* medium;
+
+	/**
+		Lista odbiorników 
+	*/
+	Receiver* * receivers;
+
+	/**
+		Lista nadajników
+	*/
+	Transmitter* * transmitters;
+	
 	/*
 		Czas po którym zatrzymie siê symulacja
 	*/
-	const double kStopTime_;
+	const double STOP_TIME_;
 
 	/*
-		Iloœæ odbiorników
+		Iloœæ odbiorników/nadajników
 	*/
-	const double kNrofOdbiornik_;
+	const int AMOUNTS_OF_DEVICES_ ;
 
 	/*
 		Aktualny czas
 	*/
-	double current_time_;
+	double currentTime;
 
 	/*
 		Czy zosta³a ustawiona opcja krok po kroku
 	*/
-	bool step_by_step_;
+	bool STEP_BY_STEP_;
 
-	double pakiet_arrived_time_;
-	vector<double> service_completion_time_;
-
-	Medium* medium_;
-
-	bool RunTimeEvents();
-	bool RunConditionalEvents();
-	void HandleNewPakietArrivedTEvent();
-	void HandleServiceCompletionTEvent(int service_idx);
-	void HandleStartServiceCEvent(int service_idx);
 };
 
 #endif /* SIMULATOR_SIMULATOR_H_ */
