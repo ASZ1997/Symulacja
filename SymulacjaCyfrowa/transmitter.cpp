@@ -81,7 +81,7 @@ void Transmitter::HandleWaitForJob(int currentTime, Medium* medium)
 				"---" << "\n" <<
 				" Nadajnik " << "\n" <<
 				"	- id:  " << this->ID_ << "\n" <<
-				" Wyslal pakiet do buffora" << "\n" <<
+				" Wyslal pakiet do medium" << "\n" <<
 				" Pakiet:" << "\n" <<
 				"	- id: " << this->packagesBuffer.front()->ID_ << "\n";
 			std::string v = ss.str();
