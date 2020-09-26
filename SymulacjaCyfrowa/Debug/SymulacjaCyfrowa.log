@@ -1,9 +1,0 @@
-﻿  logger.cpp
-  main.cpp
-  simulator.cpp
-C:\Users\Asia\source\repos\SymulacjaCyfrowa\SymulacjaCyfrowa\simulator.cpp(31,23): warning C4244: "argument": konwersja z "const double" do "int", możliwa utrata danych
-C:\Users\Asia\source\repos\SymulacjaCyfrowa\SymulacjaCyfrowa\simulator.cpp(48,20): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
-C:\Users\Asia\source\repos\SymulacjaCyfrowa\SymulacjaCyfrowa\simulator.cpp(64,20): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
-C:\Users\Asia\source\repos\SymulacjaCyfrowa\SymulacjaCyfrowa\simulator.cpp(98,21): warning C4018: "<": niezgodność typu ze znakiem/bez znaku
-  Generowanie kodu...
-  SymulacjaCyfrowa.vcxproj -> C:\Users\Asia\source\repos\SymulacjaCyfrowa\Debug\SymulacjaCyfrowa.exe
