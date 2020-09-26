@@ -8,7 +8,7 @@ int main()
 	printf("                           INITIALIZATION\n");
 	printf("------------------------------------------------------------------------\n");
 
-	Simulator* simulator = new Simulator(200, 1);
+	Simulator* simulator = new Simulator(100, 4);
 
 	bool step_by_step = true; 
 	int logger_verb;

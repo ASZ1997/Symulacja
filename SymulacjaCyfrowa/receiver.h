@@ -1,7 +1,6 @@
 #ifndef Receiver_h_
 #define Receiver_h_
 
-#include <queue>
 
 using namespace std;
 
@@ -24,7 +23,8 @@ public:
 	/**
 		Szansa na poprawn¹ obs³ugê pakietu
 	*/
-	const float T = 0.8;
+	
+	const float T = 0.1;
 	
 	/**
 		Zwraca czy pakiet zosta³ pomyœlnie obs³uzony

@@ -4,7 +4,7 @@
 using namespace std;
 
 /**
-	Odbiornik
+	Pakiet
 */
 class Package
 {

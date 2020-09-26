@@ -79,7 +79,7 @@ public:
 	int timeWaitForRetrasmissions;
 
 	/**
-		kiedy wchodzi w stan czekaj na ack czka dopuki czas na powrót 
+		kiedy wchodzi w stan czekaj na ack czeka dopóki czas na powrót 
 		nie skoñczy siê lub do momentu a¿ flaga z powrotem ack zmieni siê na true
 	*/
 	bool flagAck = false;
